@@ -71,9 +71,9 @@ export default {
       .slide-img
         width 100%
     .swiper-pagination
-      position absolute
-      width 100vw
+      // 原来的类型上有  position absolute
+      // position absolute
+      // width 100vw
       bottom -0.5rem
       color #ffffff
-      text-align center
 </style>
