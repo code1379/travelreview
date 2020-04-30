@@ -38,7 +38,7 @@ import CityTouchAlpha from './childComps/CityTouchAlpha';
 //
 import { getCityResource } from 'network/city';
 import { mapGetters, mapActions } from 'vuex';
-
+import { debounce } from 'common/util';
 export default {
   name: 'City',
   components: {
@@ -63,14 +63,21 @@ export default {
     this.cityalpha = this.$refs.cityalpha;
     this.scroll = this.$refs.scroll;
     // console.log(this.cityalpha.$refs.A);
+    this.debounceChangeCityName = debounce((cityname) => {
+      this.cityName = cityname.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    }, 10);
+    this.debounceScrollToElement = debounce((alpha) => {
+      this.scroll.scrollToElement(this.cityalpha.$refs[alpha][0]);
+    });
   },
   methods: {
     ...mapActions({
       change: 'asyncChangeCity',
     }),
     handleScrollToElement(alpha) {
-      console.log(alpha);
-      this.scroll.scrollToElement(this.cityalpha.$refs[alpha][0]);
+      // console.log(alpha);
+      // this.scroll.scrollToElement(this.cityalpha.$refs[alpha][0]);
+      this.debounceScrollToElement(alpha);
     },
     handleChangeCity(city) {
       // 执行change
@@ -81,8 +88,11 @@ export default {
       });
     },
     handleCityNameChange(cityname) {
-      this.cityName = cityname.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      // 在这里延迟改变
+      // this.cityName = cityname.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+      this.debounceChangeCityName(cityname);
     },
+
     handleBackHome() {
       this.$router.go(-1);
     },

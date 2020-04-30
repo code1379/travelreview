@@ -33,6 +33,7 @@ export default {
   methods: {
     changeCityNameAndEmit(event) {
       // this.cityName = event.target.value;
+      // 我们在这里延迟它的发送
       this.$emit('cityNameChange', event.target.value);
     },
   },

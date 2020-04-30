@@ -1,11 +1,16 @@
 <template>
   <div class="recommend">
     <div class="name">热销推荐</div>
-    <div class="item" v-for="item in recommendList" :key="item.id">
+    <div
+      class="item"
+      v-for="item in recommendList"
+      :key="item.id"
+      @click="goToDetail(item.id)"
+    >
       <img class="item-img" :src="item.imgUrl" alt />
       <div class="info">
-        <div class="title">{{item.title}}</div>
-        <p class="desc">{{item.desc}}</p>
+        <div class="title">{{ item.title }}</div>
+        <p class="desc">{{ item.desc }}</p>
         <span class="see-detail">查看详情</span>
       </div>
     </div>
@@ -14,15 +19,26 @@
 
 <script>
 export default {
-  name: "HomeRecommend",
+  name: 'HomeRecommend',
   props: {
     recommendList: {
       type: Array,
       default() {
         return [];
-      }
-    }
-  }
+      },
+    },
+  },
+  methods: {
+    goToDetail(itemid) {
+      console.log(itemid);
+      this.$router.push({
+        name: 'Detail',
+        params: {
+          id: itemid,
+        },
+      });
+    },
+  },
 };
 </script>
 

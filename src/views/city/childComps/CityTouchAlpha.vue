@@ -44,13 +44,13 @@ export default {
         // 150 -170 是padding
         // 170-190 是 A
         // 150 < x < alphabet.length * 20
-        console.log(e.touches[0].clientY);
+        // console.log(e.touches[0].clientY);
         if (
           // 我这里必须精准计算。。。。
           e.touches[0].clientY >= 170 &&
           e.touches[0].clientY <= 150 + this.alphabet.length * 20
         ) {
-          console.log('if');
+          // console.log('if');
           const index = Math.floor((e.touches[0].clientY - 170) / 20);
           this.$emit('scrollToElement', this.alphabet[index]);
         }
